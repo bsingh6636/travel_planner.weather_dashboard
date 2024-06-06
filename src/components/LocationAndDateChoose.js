@@ -1,10 +1,16 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { getCurrentCity } from './utils/getCurrentLocation'
 import { autoSuggest } from './utils/testFunction'
 
 const LocationAndDateChoose = () => {
+    const suggestCity = useRef("")
+      
     // getCurrentCity()
-    autoSuggest();
+    function autoSuggestion(data){
+             autoSuggest(data);
+             console.log(data)
+    }
+   
     return (
         <div className="flex justify-center items-center h-52 bg-gray-100">
             <form className="bg-white p-6 rounded-lg shadow-lg flex space-x-4">
@@ -14,7 +20,7 @@ const LocationAndDateChoose = () => {
                 </div>
                 <div className="flex flex-col">
                     <label htmlFor="destination" className="font-semibold mb-1">Destination</label>
-                    <input type="text" id="destination" className="border rounded-lg p-2" placeholder="Enter your destination" />
+                    <input type="text" ref={suggestCity} onChange={()=>{suggestCity.current.value.length>2 && autoSuggestion(suggestCity.current.value)}} id="destination" className="border rounded-lg p-2" placeholder="Enter your destination" />
                 </div>
                 <div className="flex flex-col">
                     <label htmlFor="travel-date" className="font-semibold mb-1">Travel Date</label>
