@@ -1,40 +1,44 @@
-export const autoSuggest = (prefix) => {
-   console.log("Test function")
+export const autoSuggest = async (prefix) => {
+
     const requestBody = JSON.stringify({ Prefix: prefix });
 
-    // const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
     const apiUrl = 'https://www.easemytrip.com/api/Flight/GetAutoSuggest';
-   
-      fetch("http://localhost:3001/"+apiUrl, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json; charset=utf-8",
-            "Origin": "'https://www.easemytrip.com"
-        },
-        body: requestBody
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json(); // Parse JSON response
+
+    try {
+        const response = await fetch("http://localhost:3001/" + apiUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+                "Origin": "'https://www.easemytrip.com"
+            },
+            body: requestBody
         })
-        .then(data => {
-          
-            if (data !== "NOTOK" && data.length > 0) {
-                
-                console.log(data)
-                
+        if (!response.ok) {
+            throw new Error('Network response not ok');
+        }
+        const data = await response.json();
+        
+        if (data.length > 0) {
+            if (data.length > 4) {
+                return data.slice(0, 4)
 
             } else {
-                console.error("No suggestions found.");
+                return data
             }
-        })
-        .catch(error => {
-            // Handle error
-            console.error('There was a problem with the fetch operation:', error);
-        });
-        
+        } else {
+            throw new Error('No suggestion was found')
+        }
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+    }
+
+
 }
 
-
+export const test2 = async () => {
+    console.log("Test2")
+    const ticketURL = 'http://localhost:3001/https://www.ixigo.com/api/v2/graphs/data/new?origin=BLR&destination=KTM&class=e&startDate=06062024&endDate=06062025&currency=INR'
+    const tc = await fetch(ticketURL)
+    const json = await tc.json()
+    console.log(json)
+}
