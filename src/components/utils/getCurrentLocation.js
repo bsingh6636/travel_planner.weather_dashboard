@@ -9,7 +9,7 @@ export function getCurrentCity() {
     function success(position) {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
-
+        console.log(latitude,longitude)
         const apiKey = "e094373a753743e0b30f2f4951fe562b"
         const apiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${apiKey}`;
 

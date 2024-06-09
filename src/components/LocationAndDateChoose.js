@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react'
 import { getCurrentCity } from './utils/getCurrentLocation'
 import { autoSuggest } from './utils/testFunction'
+import WeatherWidget from './WeatherWidget'
+
 
 const LocationAndDateChoose = () => {
     const suggestCity = useRef("")
@@ -60,6 +62,7 @@ const LocationAndDateChoose = () => {
                     </button>
                 </div>
             </form>
+            <WeatherWidget/>
 
         </div>
 
