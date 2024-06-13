@@ -16,10 +16,16 @@ app.use((req, res, next) => {
 });
 
 app.use('/', (req, res) => {
-    const url = req.url.substring(1);
+   res.send('Welcome to proxy Server')
+});
+app.use('/proxy', (req, res) => {
+    const url = req.url.substring(1); // Remove leading '/'
+    if (!url) {
+        return res.status(400).send('Bad Request: URL is missing');
+    }
+
     req.pipe(request(url)).pipe(res);
 });
-
 app.listen(PORT, () => {
     console.log(`Proxy server running on port ${PORT}`);
 });
