@@ -20,12 +20,17 @@ app.use((req, res, next) => {
     next();
 });
 
-// Proxy endpoint
-app.use('/', (req, res) => {
+app.get('/', (req, res) => {
+    res.send('Welcome to the Proxy Server!');
+});
+
+// Proxy endpoint for all other routes
+app.use('/proxy', (req, res) => {
     const url = req.url.substring(1); // Remove leading '/'
     if (!url) {
         return res.status(400).send('Bad Request: URL is missing');
     }
+
 
     req.pipe(request(url, (error, response, body) => {
         if (error) {

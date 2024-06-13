@@ -28,31 +28,3 @@ export const getWeatherinfo = async() =>{
 //    console.log(res)
 
 }
-const data = {
-    "time": "2024-06-12T00:30:00Z",
-    "values": {
-      
-        "humidityAvg": 83.74,
-        "humidityMax": 94.37,
-        "humidityMin": 72.03,
-        "iceAccumulationAvg": 0,
-      
-      
-        "rainIntensityAvg": 0.01,
-        "rainIntensityMax": 0.16,
-        "rainIntensityMin": 0,
-        
-      
-        "sunriseTime": "2024-06-12T00:26:00Z",
-        "sunsetTime": "2024-06-12T13:11:00Z",
-        "temperatureApparentAvg": 71.74,
-        "temperatureApparentMax": 76.57,
-        "temperatureApparentMin": 69.24,
-        "temperatureAvg": 71.74,
-        "temperatureMax": 76.57,
-        "temperatureMin": 69.24,
-       "weatherCodeMax": 1001,
-        "weatherCodeMin": 1001,
-       
-    }
-}
