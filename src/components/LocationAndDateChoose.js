@@ -19,7 +19,7 @@ const LocationAndDateChoose = () => {
             // setSuggestedData(volume)
             // console.log(volume)
 
-            const ixigoSuggestion = await fetch(`http://localhost:3001/https://www.ixigo.com/action/content/city?searchFor=airportSuggestions&value=${data}&nearByAirport=true`)
+            const ixigoSuggestion = await fetch(`https://travel-planner-weather-dashboard-mosd.vercel.app/https://www.ixigo.com/action/content/city?searchFor=airportSuggestions&value=${data}&nearByAirport=true`)
 
             const ixigoSuggestionResponse = await ixigoSuggestion.json()
             console.log("ixigo", ixigoSuggestionResponse.data.slice(0, 5))

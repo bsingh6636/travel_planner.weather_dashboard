@@ -3,9 +3,10 @@ export const autoSuggest = async (prefix) => {
     const requestBody = JSON.stringify({ Prefix: prefix });
 
     const apiUrl = 'https://www.easemytrip.com/api/Flight/GetAutoSuggest';
+    //http://localhost:3001/
 
     try {
-        const response = await fetch("http://localhost:3001/" + apiUrl, {
+        const response = await fetch("https://travel-planner-weather-dashboard-mosd.vercel.app/" + apiUrl, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json; charset=utf-8",
