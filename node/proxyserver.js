@@ -3,7 +3,6 @@ const request = require('request');
 const morgan = require('morgan');
 
 const app = express();
-const PORT = process.env.PORT || 3001;
 
 // Middleware for logging
 app.use(morgan('combined'));
@@ -50,6 +49,5 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something went wrong!');
 });
 
-app.listen(PORT, () => {
-    console.log(`Proxy server running on port ${PORT}`);
-});
+// Export the app as a Vercel serverless function
+module.exports = app;
