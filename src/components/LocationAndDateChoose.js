@@ -10,7 +10,7 @@ const LocationAndDateChoose = () => {
     const [fromSuggestionBar, setFromSuggestionBar] = useState(false)
     const [toSuggestionBar, setToSuggestionBar] = useState(false)
     const [suggestedData, setSuggestedData] = useState("")
-    // getCurrentCity()
+    getCurrentCity()
 
     const suggestionFunction = async (data) => {
         console.log(data)
