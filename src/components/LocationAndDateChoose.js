@@ -10,7 +10,7 @@ const LocationAndDateChoose = () => {
     const [fromSuggestionBar, setFromSuggestionBar] = useState(false)
     const [toSuggestionBar, setToSuggestionBar] = useState(false)
     const [suggestedData, setSuggestedData] = useState("")
-    getCurrentCity()
+    // getCurrentCity()
 
     const suggestionFunction = async (data) => {
         console.log(data)
@@ -19,7 +19,8 @@ const LocationAndDateChoose = () => {
             // setSuggestedData(volume)
             // console.log(volume)
 
-            const ixigoSuggestion = await fetch(`https://travel-planner-weather-dashboard-mosd.vercel.app/https://www.ixigo.com/action/content/city?searchFor=airportSuggestions&value=${data}&nearByAirport=true`)
+            // const ixigoSuggestion = await fetch(`https://localhost:1234/https://www.ixigo.com/action/content/city?searchFor=airportSuggestions&value=${data}&nearByAirport=true`)
+            const ixigoSuggestion = await fetch(`https://www.ixigo.com/action/content/city?searchFor=airportSuggestions&value=${data}&nearByAirport=true`)
 
             const ixigoSuggestionResponse = await ixigoSuggestion.json()
             console.log("ixigo", ixigoSuggestionResponse.data.slice(0, 5))
