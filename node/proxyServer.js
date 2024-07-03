@@ -5,14 +5,23 @@ import request from 'request';
 const app = express();
 const PORT = process.env.PORT || 1234;
 
-// Middleware for CORS
+// Middleware for CORS and logging
 app.use((req, res, next) => {
+    // Log the request method and URL
+    console.log(chalk.yellow(`[${new Date().toISOString()}] ${req.method} ${req.url}`));
+    // Log request headers
+    console.log(chalk.cyan('Request Headers:'));
+    console.log(req.headers);
+    
+    // Set CORS headers
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    
     if (req.method === 'OPTIONS') {
         return res.sendStatus(200);
     }
+    
     next();
 });
 

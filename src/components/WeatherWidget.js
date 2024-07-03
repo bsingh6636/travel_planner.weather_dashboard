@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import { getWeatherinfo } from './utils/weatherApi'
+
+import { useContext} from "react";
 import  "../css/weatherWidget.css"
 import { WiDaySunny, WiCloudy, WiRain, WiSnow, WiThunderstorm } from 'react-icons/wi'; 
+import { myContext } from "..";
 const WeatherWidget = () => {
-  const [weaterh,setweaterh] =useState("")
+    const {object} =useContext(myContext)
+    
+    
+//   const [weaterh,setweaterh] =useState("")
   // useEffect(()=>{
   //   const data =getWeatherinfo()
   //   setweaterh(data)
@@ -18,15 +22,14 @@ const WeatherWidget = () => {
 };
 
   return (
-    <div><WeeatherWidget data={data}/></div>
-   
+    
+    <div className={`${object.marginTop}`}><WeeatherWidget data={data}/>
+    {console.log(object.marginTop)}
+    </div>
   )
 }
 
 export default WeatherWidget
-
-
-
 
 export const WeeatherWidget = ({ data }) => {
   const {
@@ -60,7 +63,7 @@ export const WeeatherWidget = ({ data }) => {
   };
 
   return (
-      <div className="weather-widget">
+      <div className="weather-widget h-40">
           <div className="weather-icon">
               {getWeatherIcon(weatherCodeMax)}
           </div>

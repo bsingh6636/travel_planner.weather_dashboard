@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { createContext,useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+export const myContext = createContext({})
+const AppWrapper = () =>{
+  const [searchPlace,setSearchPlace]=useState("hy")
+  const [object,setObject] =useState({})
+ return(
+  <myContext.Provider value={{searchPlace,setSearchPlace,object,setObject}}>
+  <App/>
+</myContext.Provider>
+ )
+ 
+}
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <AppWrapper />
   </React.StrictMode>
 );
 

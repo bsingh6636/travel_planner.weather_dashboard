@@ -1,4 +1,7 @@
+
+
 export const Head = () => {
+   
     return (
       
             <div className="shadow-2xl mt-2 rounded-xl bg-gradient-to-r from-blue-600 via-green-400 to-rose-400  flex justify-around ">
