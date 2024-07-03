@@ -3,17 +3,17 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 // import { autoSuggest } from './utils/testFunction'
 import WeatherWidget from './WeatherWidget'
 import SuggestContainer from './pages/SuggestContainer'
-import {myContext} from '../index'
-import { suggestionFunction } from './utils/ApiFunction'
+import { myContext } from '../index'
+
 
 
 
 const LocationAndDateChoose = () => {
-    const {object,setObject} = useContext(myContext)
-    useEffect(()=>{
-        setObject({...object,marginTop:"mt-10"})
-    },[])
-   
+    const { object, setObject } = useContext(myContext)
+    useEffect(() => {
+        setObject({ ...object, marginTop: "mdt-[-400px] " })
+    }, [])
+
     console.log(object)
     const suggestCity = useRef("")
     const toSuggestCity = useRef("")
@@ -23,23 +23,22 @@ const LocationAndDateChoose = () => {
     const [fromSuggestedData, setFromSuggestedData] = useState("")
     // getCurrentCity()
 
-    // const suggestionFunction = async (data, setLoc) => {
-    //     // console.log(data)
-    //     if (data.length > 2) {
-    //         const ixigoSuggestion = await fetch(`http://localhost:1234/https://www.ixigo.com/action/content/city?searchFor=airportSuggestions&value=${data}&nearByAirport=true`)
-    //         // const ixigoSuggestion = await fetch(`https://www.ixigo.com/action/content/city?searchFor=airportSuggestions&value=${data}&nearByAirport=true`)
-    //         const ixigoSuggestionResponse = await ixigoSuggestion.json()
-    //         setLoc(ixigoSuggestionResponse.data.slice(0, 5))
-    //     }
-    // }
-   const data = suggestionFunction(setLoc)
-   console.log(data)
+    const suggestionFunction = async (data, setLoc) => {
+        // console.log(data)
+        if (data.length > 2) {
+            const ixigoSuggestion = await fetch(`http://localhost:1234/https://www.ixigo.com/action/content/city?searchFor=airportSuggestions&value=${data}&nearByAirport=true`)
+            // const ixigoSuggestion = await fetch(`https://www.ixigo.com/action/content/city?searchFor=airportSuggestions&value=${data}&nearByAirport=true`)
+            const ixigoSuggestionResponse = await ixigoSuggestion.json()
+            setLoc(ixigoSuggestionResponse.data.slice(0, 5))
+        }
+    }
+
 
     return (
-        <div className="flex  mt-10 p-2 justify-center items-center   bg-gray-300 rounded-2xl w-[1000px]" >
-            <form className= {` bg-white p-6 rounded-lg shadow-lg flex space-x-4  align-middle ${object.marginTop}`} onSubmit={(e) => e.preventDefault()}>
+        <div className="flex  mt-10 p-2 justify-center items-center  h-44 bg-gray-100 rounded-2xl w-[1200px]" >
+            <form className={` bg-white p-6 mr-2 rounded-lg shadow-lg flex space-x-4   align-middle ${object.marginTop}`} onSubmit={(e) => e.preventDefault()}>
                 <div className="flex flex-col">
-                   
+
                     <label htmlFor="current-location" className="font-semibold mb-1">From</label>
                     <input type="text" onFocus={() => setFromSuggestionBar(true)} ref={toSuggestCity}
                         onBlur={() => setFromSuggestionBar(false)}
