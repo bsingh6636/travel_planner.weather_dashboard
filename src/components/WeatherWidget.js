@@ -5,15 +5,7 @@ import { WiDaySunny, WiCloudy, WiRain, WiSnow, WiThunderstorm } from 'react-icon
 import { myContext } from "..";
 const WeatherWidget = () => {
     const {object} =useContext(myContext)
-    
-    
-//   const [weaterh,setweaterh] =useState("")
-  // useEffect(()=>{
-  //   const data =getWeatherinfo()
-  //   setweaterh(data)
-  //   console.log(data)
-  // },[])
-  const data = {
+    const data = {
     "time": "2024-06-12T00:30:00Z",
     "values": {
         "temperatureAvg": 71.74,
@@ -24,8 +16,7 @@ const WeatherWidget = () => {
   return (
     
     <div className={`${object.marginTop}`}><WeeatherWidget data={data}/>
-    {console.log(object.marginTop)}
-    </div>
+     </div>
   )
 }
 
