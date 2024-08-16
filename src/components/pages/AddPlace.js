@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { backEndServer } from '../../import'
+import { toast } from 'react-toastify'
 
 const AddPlace = ({ fetchPlaceAfterDelete }) => {
 
@@ -24,15 +25,17 @@ const AddPlace = ({ fetchPlaceAfterDelete }) => {
                 method: 'POST',
                 body: formData,
             });
-
+            const data = await response.json()
             if (response.ok) {
-                alert('Place added successfully!');
+                
+                toast.success(data.message);
                 setPlaceName('');
                 setImage(null);
                 setPlaceDetails('')
                 fetchPlaceAfterDelete()
             } else {
-                alert('Failed to add place.');
+                toast.error(data.message)
+                
             }
         } catch (error) {
             console.error('Error:', error);

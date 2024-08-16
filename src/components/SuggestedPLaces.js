@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 
 import { backEndServer , AddPlace } from '../import';
+import { toast } from 'react-toastify';
 
 
 const SuggestedPLaces = () => {
   const [places, setPlaces] = useState([]);
   const fetchPlaces = async () => {
-    console.log('fetch')
     try {
       const response = await fetch(`${backEndServer}/api/places`);
       const data = await response.json();
@@ -31,10 +31,11 @@ const SuggestedPLaces = () => {
       })
       const data = await response.json()
       fetchPlaces()
-      alert(data.message)
+      // alert(data.message)
+      toast.success(data.message);
 
     } catch (error) {
-      alert(error)
+      toast.error(error)
       console.log(error)
     }
   }
