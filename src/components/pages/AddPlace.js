@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { backEndServer } from '../../import'
 
 const AddPlace = ({ fetchPlaceAfterDelete }) => {
 
@@ -19,7 +20,7 @@ const AddPlace = ({ fetchPlaceAfterDelete }) => {
         formData.append('image', image);
         formData.append('placeDetails', placeDetails)
         try {
-            const response = await fetch('http://localhost:1234/api/places', {
+            const response = await fetch(`${backEndServer}/api/places`, {
                 method: 'POST',
                 body: formData,
             });

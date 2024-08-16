@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import AddPlace from './pages/AddPlace'
+
+import { backEndServer , AddPlace } from '../import';
+
 
 const SuggestedPLaces = () => {
   const [places, setPlaces] = useState([]);
-
   const fetchPlaces = async () => {
     console.log('fetch')
     try {
-      const response = await fetch('http://localhost:1234/api/places');
+      const response = await fetch(`${backEndServer}/api/places`);
       const data = await response.json();
       setPlaces(data);
     } catch (error) {
@@ -21,7 +22,7 @@ const SuggestedPLaces = () => {
 
   async function deletePlace(_id) {
     try {
-      const response = await fetch('http://localhost:1234/api/places', {
+      const response = await fetch(`${backEndServer}/api/places`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
