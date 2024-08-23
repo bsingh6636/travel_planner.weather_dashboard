@@ -3,53 +3,50 @@ import { backEndServer } from '../../import'
 import { toast } from 'react-toastify'
 
 const AddPlace = ({ fetchPlaceAfterDelete }) => {
-
-    const [placeName, setPlaceName] = useState('')
-    const [placeDetails, setPlaceDetails] = useState('')
-    const [image, setImage] = useState(null)
-    const [loading, setLoading] = useState(false)
+    const [placeName, setPlaceName] = useState('');
+    const [placeDetails, setPlaceDetails] = useState('');
+    const [image, setImage] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const handlePlaceChangeName = (e) => setPlaceName(e.target.value);
-    const handlePLaceDetailsChange = (e) => setPlaceDetails(e.target.value);
+    const handlePlaceDetailsChange = (e) => setPlaceDetails(e.target.value);
     const handleImageChange = (e) => setImage(e.target.files[0]);
 
     async function handleSubmit(e) {
         e.preventDefault();
-        setLoading(true)
+        setLoading(true);
         const formData = new FormData();
         formData.append('placeName', placeName);
         formData.append('image', image);
-        formData.append('placeDetails', placeDetails)
+        formData.append('placeDetails', placeDetails);
         try {
             const response = await fetch(`${backEndServer}/api/places`, {
                 method: 'POST',
                 body: formData,
             });
-            const data = await response.json()
+            const data = await response.json();
             if (response.ok) {
-                
                 toast.success(data.message);
                 setPlaceName('');
                 setImage(null);
-                setPlaceDetails('')
-                fetchPlaceAfterDelete()
+                setPlaceDetails('');
+                fetchPlaceAfterDelete();
             } else {
-                toast.error(data.message)
-                
+                toast.error(data.message);
             }
         } catch (error) {
             console.error('Error:', error);
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
     }
 
     return (
-        <div className='max-w-md mx-auto bg-gray-200 p-4 shadow-md rounded-lg'>
-            <h2 className='text-xl font-bold mb-2 text-center'>Add Place</h2>
-            <form onSubmit={handleSubmit}>
-                <div className='mb-2'>
-                    <label htmlFor='placeName' className='block text-gray-700'>
+        <div className='max-w-md mx-auto bg-white p-6 shadow-lg rounded-lg'>
+            <h2 className='text-2xl font-bold mb-4 text-center text-gray-800'>Add Place</h2>
+            <form onSubmit={handleSubmit} className='space-y-4'>
+                <div>
+                    <label htmlFor='placeName' className='block text-gray-700 font-medium'>
                         Place Name:
                     </label>
                     <input
@@ -57,44 +54,69 @@ const AddPlace = ({ fetchPlaceAfterDelete }) => {
                         id='placeName'
                         value={placeName}
                         onChange={handlePlaceChangeName}
-                        className='w-full p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400'
+                        className='w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 text-lg'
                         required
                     />
                 </div>
-                <div className='mb-2'>
-                    <label htmlFor='placeDetails' className='block text-gray-700'>
+                <div>
+                    <label htmlFor='placeDetails' className='block text-gray-700 font-medium'>
                         Place Details:
                     </label>
-                    <input
-                        type='text'
+                    <textarea
                         id='placeDetails'
                         value={placeDetails}
-                        onChange={handlePLaceDetailsChange}
-                        className='w-full p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400'
+                        onChange={handlePlaceDetailsChange}
+                        className='w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 text-lg resize-none'
+                        rows='4'
                         required
                     />
                 </div>
-                <div className='mb-2'>
-                    <label htmlFor='image' className='block text-gray-700'>
+                <div>
+                    <label htmlFor='image' className='block text-gray-700 font-medium mb-2'>
                         Upload Image:
                     </label>
-                    <input
-                        type='file'
-                        id='image'
-                        accept='image/*'
-                        onChange={handleImageChange}
-                        className='w-full p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400'
-                    />
+                    <div className='flex items-center'>
+                        <label className='cursor-pointer bg-gray-200 p-3 rounded-lg flex items-center justify-center border border-dashed border-gray-400 hover:bg-gray-300 transition-colors duration-300'>
+                            <input
+                                type='file'
+                                id='image'
+                                accept='image/*'
+                                onChange={handleImageChange}
+                                className='hidden'
+                            />
+                            <span className='text-blue-500 text-lg font-semibold flex items-center'>
+                                <svg
+                                    className='h-6 w-6 mr-2'
+                                    fill='none'
+                                    stroke='currentColor'
+                                    viewBox='0 0 24 24'
+                                    xmlns='http://www.w3.org/2000/svg'
+                                >
+                                    <path
+                                        strokeLinecap='round'
+                                        strokeLinejoin='round'
+                                        strokeWidth='2'
+                                        d='M12 4v16m8-8H4'
+                                    />
+                                </svg>
+                                Choose File
+                            </span>
+                        </label>
+                        {image && (
+                            <span className='ml-4 text-gray-600'>{image.name}</span>
+                        )}
+                    </div>
                 </div>
                 <button
                     type='submit'
-                    className='w-full bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition-colors duration-300'
+                    className={`w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600 transition-colors duration-300 text-lg font-semibold flex justify-center items-center ${loading ? 'cursor-not-allowed' : ''
+                        }`}
                     disabled={loading}
                 >
                     {loading ? (
                         <div className='flex justify-center items-center'>
                             <svg
-                                className='animate-spin h-5 w-5 text-white mr-2'
+                                className='animate-spin h-6 w-6 text-white mr-2'
                                 xmlns='http://www.w3.org/2000/svg'
                                 fill='none'
                                 viewBox='0 0 24 24'
@@ -124,4 +146,4 @@ const AddPlace = ({ fetchPlaceAfterDelete }) => {
     );
 }
 
-export default AddPlace
+export default AddPlace;

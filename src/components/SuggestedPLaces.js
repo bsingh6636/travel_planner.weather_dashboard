@@ -40,12 +40,13 @@ const SuggestedPLaces = () => {
     }
   }
   return (
-    <div className="container mx-auto px-4 py-6 pb-20 h-max">
-      <AddPlace fetchPlaceAfterDelete={fetchPlaces} />
+    <div className="container mx-auto px-4 py-6 pb-20 h-max ">
+      
       <div className="bg-white p-6 shadow-lg rounded-lg">
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Suggested Places</h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <AddPlace fetchPlaceAfterDelete={fetchPlaces} />
           {places.map((place) => (
             <div
               key={place._id}

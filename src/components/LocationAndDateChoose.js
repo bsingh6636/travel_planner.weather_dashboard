@@ -18,11 +18,13 @@ const LocationAndDateChoose = () => {
     const [toSuggestedData, setToSuggestedData] = useState('');
     const [fromSuggestedData, setFromSuggestedData] = useState('');
 
-    function setFromValue (airportCode) {
-            fromSuggestCity.current.value =airportCode       
+    function setFromValue (airportCode,city) {
+            const data = `${airportCode} - ${city}`
+            fromSuggestCity.current.value =data     
     }
-    function setToValue (airportCode) {
-        toSuggestCity.current.value =airportCode      
+    function setToValue (airportCode,city) {
+        const data = `${airportCode} - ${city}`
+        toSuggestCity.current.value =data  
 }
     const suggestionFunction = async (data, setLoc) => {
         if (data.length > 2) {
@@ -31,6 +33,12 @@ const LocationAndDateChoose = () => {
             setLoc(ixigoSuggestionResponse.data.slice(0, 5));
         }
     };
+        function suggestionBarHandlingTo (suggestionBarStatus){
+            const i = setTimeout(()=>{
+                suggestionBarStatus(false)
+            },200)
+            return i ;
+        }
 
     return (
         <div className="flex flex-col sm:flex-row sm:justify-between mt-10 p-4 sm:p-6 justify-center items-center h-auto sm:h-44 bg-gray-100 rounded-2xl w-full sm:w-[1200px]">
@@ -44,10 +52,10 @@ const LocationAndDateChoose = () => {
                         type="text"
                         onFocus={() => setFromSuggestionBar(true)}
                         ref={fromSuggestCity}
-                        onBlur={() => setFromSuggestionBar(false)}
+                        onBlur={() => suggestionBarHandlingTo(setFromSuggestionBar) }
                         onChange={() => suggestionFunction(fromSuggestCity.current.value, setFromSuggestedData)}
                         id="current-location"
-                        className="border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 font-semibold"
                         placeholder="Enter your location"
                     />
                     {fromSuggestionBar && fromSuggestedData && <SuggestContainer suggestion={fromSuggestedData} settingInputValue={setFromValue} />}
@@ -57,11 +65,11 @@ const LocationAndDateChoose = () => {
                     <input
                         type="text"
                         onFocus={() => setToSuggestionBar(true)}
-                        onBlur={() => setToSuggestionBar(false)}
+                        onBlur={() => suggestionBarHandlingTo(setToSuggestionBar)}
                         ref={toSuggestCity}
                         onChange={() => suggestionFunction(toSuggestCity.current.value, setToSuggestedData)}
                         id="destination"
-                        className="border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 font-semibold"
                         placeholder="Enter your destination"
                     />
                     {toSuggestionBar && toSuggestedData && <SuggestContainer suggestion={toSuggestedData} settingInputValue={setToValue} />}
@@ -71,7 +79,7 @@ const LocationAndDateChoose = () => {
                     <input
                         type="date"
                         id="travel-date"
-                        className="border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 "
                     />
                 </div>
                 <div className="flex flex-col w-full sm:w-auto">
